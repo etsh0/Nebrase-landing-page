@@ -82,7 +82,7 @@ img {
   letter-spacing: -0.01em;
 }
 .nebrase-logo {
-  width: 60px;
+  width: 120px;
 }
 .nav-links a {
   color: rgba(226, 232, 240, 0.7);
@@ -121,22 +121,47 @@ img {
   color: #060d16;
   border-color: var(--gold);
 }
+.btn-hero-primary {
+  padding: 12px 32px;
+  font-size: 1rem;
+}
 .btn-outline {
-  background: rgba(255, 255, 255, 0.08);
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #e2e8f0;
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 50px;
-  padding: 9px 24px;
-  font-size: 0.9rem;
+  padding: 12px 28px;
+  font-size: 0.98rem;
   font-weight: 700;
   cursor: pointer;
-  transition: transform 0.2s;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
   font-family: "Cairo", sans-serif;
-  display: inline-block;
+}
+.btn-outline .btn-icon {
+  font-size: 0.82rem;
+  transition:
+    transform 0.28s ease,
+    color 0.28s ease;
 }
 .btn-outline:hover {
-  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.1);
   color: #fff;
+  border-color: rgba(251, 197, 49, 0.45);
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.35),
+    0 0 20px rgba(251, 197, 49, 0.12);
+  transform: translateY(-2px);
+}
+.btn-outline:hover .btn-icon {
+  color: var(--gold);
+  transform: translateY(3px);
 }
 
 /* ── sections ── */
@@ -225,10 +250,24 @@ section {
   color: #fff;
   font-size: clamp(2rem, 5vw, 3.4rem);
   line-height: 1.4;
-  margin-bottom: 20px;
+  margin-bottom: 35px;
 }
 .hero-title span {
   color: var(--gold);
+}
+.hero-highlight {
+  position: relative;
+  display: inline-block;
+}
+.hero-underline-svg {
+  position: absolute;
+  bottom: -22px;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 22px;
+  overflow: visible;
+  pointer-events: none;
 }
 .hero-sub {
   color: rgba(255, 255, 255, 0.72);
@@ -264,11 +303,31 @@ section {
 
 /* ── ribbon ── */
 #ribbon {
-  margin-top: 30px;
-  padding: 20px 0;
-  background: rgba(251, 197, 49, 0.06);
+  padding: 40px 0;
+  background: rgba(251, 197, 49, 0.04);
   border-top: 1px solid rgba(251, 197, 49, 0.12);
   border-bottom: 1px solid rgba(251, 197, 49, 0.12);
+}
+.ribbon-title {
+  font-weight: 900;
+  color: #fff;
+  font-size: clamp(1.4rem, 3vw, 1.8rem);
+  margin-bottom: 24px;
+}
+.ribbon-highlight {
+  position: relative;
+  display: inline-block;
+  color: #fff;
+}
+.ribbon-underline-svg {
+  position: absolute;
+  bottom: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 130px;
+  height: 20px;
+  overflow: visible;
+  pointer-events: none;
 }
 #ribbon .partner {
   color: var(--muted);
@@ -283,51 +342,105 @@ section {
   border-radius: var(--radius);
 }
 .card-stat {
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: var(--radius);
-  padding: 16px;
+  border-radius: 16px;
+  padding: 20px 14px;
   text-align: center;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.card-stat:hover {
+  background: rgba(251, 197, 49, 0.06);
+  border-color: rgba(251, 197, 49, 0.3);
+  transform: translateY(-4px);
+  box-shadow:
+    0 10px 25px rgba(0, 0, 0, 0.35),
+    0 0 15px rgba(251, 197, 49, 0.12);
 }
 .card-stat .cs-num {
   font-weight: 900;
-  font-size: 1.4rem;
+  font-size: 1.65rem;
   color: var(--gold);
 }
 .card-stat .cs-lbl {
-  font-size: 0.7rem;
+  font-size: 0.78rem;
   color: var(--muted);
   margin-top: 4px;
+  font-weight: 700;
 }
 
 /* ── about ── */
+#about {
+  padding: 90px 0;
+  position: relative;
+}
+.about-title {
+  font-weight: 900;
+  color: #fff;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  line-height: 1.3;
+}
+.about-highlight {
+  position: relative;
+  display: inline-block;
+  color: var(--gold);
+}
+.about-underline-svg {
+  position: absolute;
+  bottom: -25px;
+  right: 0;
+  width: 100%;
+  height: 24px;
+  overflow: visible;
+  pointer-events: none;
+}
+.about-desc {
+  color: rgba(226, 232, 240, 0.85);
+  font-size: 1.05rem;
+  line-height: 2;
+}
 .about-img-wrap {
   position: relative;
+  /* border-radius: var(--radius);
+  padding: 6px; */
+  /* background: rgba(251, 197, 49, 0.12); */
+  /* border: 1px solid rgba(251, 197, 49, 0.4); */
 }
 .about-img-wrap img {
   width: 100%;
   height: 420px;
   object-fit: cover;
-  border-radius: var(--radius);
+  object-position: right;
+  border-radius: calc(var(--radius) - 6px);
 }
 .about-badge {
   position: absolute;
   bottom: -20px;
-  left: -20px;
+  inset-inline-start: -25px;
   background: linear-gradient(135deg, var(--gold), var(--gold2));
   color: #060d16;
-  border-radius: var(--radius);
-  padding: 14px 20px;
+  border-radius: 16px;
+  padding: 14px 22px;
   font-weight: 900;
-  line-height: 1.3;
+  line-height: 1.2;
+}
+.about-badge .ab-num {
+  font-size: 1.7rem;
+  font-weight: 900;
+}
+.about-badge .ab-lbl {
+  font-size: 0.78rem;
+  font-weight: 700;
 }
 .section-label {
   display: inline-block;
   background: rgba(251, 197, 49, 0.12);
   color: var(--gold);
   border-radius: 50px;
-  padding: 5px 14px;
-  font-size: 0.75rem;
+  padding: 6px 16px;
+  font-size: 0.8rem;
   font-weight: 900;
   margin-bottom: 16px;
 }
@@ -797,4 +910,54 @@ footer .footer-links a:hover {
   display: flex;
   flex-direction: column;
   gap: 0;
+}
+
+/* ── Mobile Overflow & Responsive Safety Fixes ── */
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+header,
+section,
+footer {
+  overflow-x: hidden;
+}
+
+@media (max-width: 768px) {
+  /* Prevent floating decorative orbs from overflowing mobile screen width */
+  .hero-orb1,
+  .hero-orb2 {
+    max-width: 100vw;
+    opacity: 0.35;
+  }
+  .hero-orb1 {
+    right: 0;
+  }
+  .hero-orb2 {
+    left: 0;
+  }
+
+  /* Keep absolute badges inside mobile screen padding */
+  .about-badge {
+    inset-inline-start: 10px;
+    bottom: -15px;
+  }
+  .story-badge {
+    right: 10px;
+    top: -15px;
+  }
+
+  /* Responsive floating navbar on mobile screens */
+  #navbar {
+    width: calc(100% - 24px);
+    top: 12px;
+    padding: 8px 16px;
+  }
+
+  /* Hero title font size scaling for small screens */
+  .hero-title {
+    font-size: clamp(1.7rem, 6vw, 2.4rem);
+  }
 }

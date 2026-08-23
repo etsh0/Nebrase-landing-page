@@ -32,12 +32,12 @@
     <!-- ══════════════════ NAVBAR ══════════════════ -->
     <nav id="navbar">
       <div class="container d-flex align-items-center justify-content-between">
-        <span class="nav-logo">Nebrase</span>
-        <!-- <img
+        <!-- <span class="nav-logo">Nebrase</span> -->
+        <img
           class="nebrase-logo"
-          src="./images/a33d972d-7d20-4807-b0de-33f2c99fd49a.png"
+          src="./images/fbcab719-70ea-4d8d-ac03-282abe10bb7a.png"
           alt="nebrase-logo"
-        /> -->
+        />
         <div class="nav-links d-none d-md-block">
           <a href="#stages">المراحل</a>
           <a href="#golden">الجولدن تيكت</a>
@@ -54,12 +54,32 @@
       <div class="hero-orb1"></div>
       <div class="hero-orb2"></div>
       <div class="hero-content container px-3">
-        <div class="badge-pill">
-          🚀 انطلق في عام 2026 — أكتر من 20,000 متدرب
-        </div>
+        <div class="badge-pill">انطلق في عام 2026 — أكتر من 20,000 متدرب</div>
         <h1 class="hero-title">
           تعلّم أساسيات البرمجة من الصفر<br />
-          <span>في 30 يوم فقط</span>
+          <span class="hero-highlight">
+            في 30 يوم فقط
+            <svg class="hero-underline-svg" viewBox="0 0 320 60" fill="none">
+              <path
+                d="M10 40 Q160 5 310 50"
+                stroke="url(#paint_hero_gold)"
+                stroke-width="4"
+                stroke-linecap="round"
+              ></path>
+              <defs>
+                <linearGradient
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="0%"
+                  id="paint_hero_gold"
+                >
+                  <stop offset="0%" stop-color="#fbc531"></stop>
+                  <stop offset="100%" stop-color="#f39c12"></stop>
+                </linearGradient>
+              </defs>
+            </svg>
+          </span>
         </h1>
         <p class="hero-sub">
           ازاي تبدأ البرمجة من الصفر، حتى لو متعرفش يعني إيه كمبيوتر، وتختار
@@ -83,71 +103,139 @@
             <div class="stat-lbl">سنوات خبرة</div>
           </div>
         </div>
-        <div class="d-flex flex-wrap gap-3 justify-content-center">
-          <a
-            href="#register"
-            class="btn-gold"
-            style="font-size: 1.1rem; padding: 14px 40px"
+        <div
+          class="d-flex flex-wrap gap-3 justify-content-center align-items-center"
+        >
+          <a href="#register" class="btn-gold btn-hero-primary"
             >انضم للبرنامج دلوقتي</a
           >
-          <a
-            href="#stages"
-            class="btn-outline"
-            style="font-size: 1rem; padding: 14px 32px"
-            >اعرف أكتر ↓</a
-          >
+          <a href="#stages" class="btn-outline">
+            <span>اعرف أكتر</span>
+            <i class="fa-solid fa-arrow-down-long btn-icon"></i>
+          </a>
         </div>
       </div>
       <div class="hero-fade-bottom"></div>
     </header>
 
     <!-- ══════════════════ RIBBON ══════════════════ -->
-    <div id="ribbon">
-      <div class="container">
-        <div
-          class="d-flex flex-wrap justify-content-center align-items-center gap-4"
-        >
-          <span class="partner">معهد العاشر من رمضان 🤝</span>
-          <span class="partner">مودرن أكاديمي 🤝</span>
-          <span class="partner">معهد الصفوة الهندسي 🤝</span>
-          <span class="partner">أكاديمية الشروق 🤝</span>
-          <!-- <img src="./images/moder-academy.webp" alt="" />
-          <img src="./images/SH-academy.webp" alt="" />
-          <img src="./images/Tenth-of-ramadan-city.webp" alt="" />
-          <img src="./images/Al-Safwa.webp" alt="" /> -->
-        </div>
+    <div id="ribbon" class="py-5 mt-5">
+      <div class="container text-center">
+        <h2 class="ribbon-title mb-5">
+          <span class="ribbon-highlight">
+            شركاؤنا
+            <svg class="ribbon-underline-svg" viewBox="0 0 320 60" fill="none">
+              <path
+                d="M10 40 Q160 5 310 50"
+                stroke="url(#paint_ribbon_gold)"
+                stroke-width="5"
+                stroke-linecap="round"
+              ></path>
+              <defs>
+                <linearGradient
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="0%"
+                  id="paint_ribbon_gold"
+                >
+                  <stop offset="0%" stop-color="#fbc531"></stop>
+                  <stop offset="100%" stop-color="#f39c12"></stop>
+                </linearGradient>
+              </defs>
+            </svg>
+          </span>
+        </h2>
+        <!-- <div class="row g-4 justify-content-center align-items-center">
+          <div class="col-6 col-md-3">
+            <div class="partner-glass-card">
+              <img
+                src="./images/moder-academy.webp"
+                alt="مودرن أكاديمي"
+                class="partner-img"
+              />
+            </div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="partner-glass-card">
+              <img
+                src="./images/SH-academy.webp"
+                alt="أكاديمية الشروق"
+                class="partner-img"
+              />
+            </div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="partner-glass-card">
+              <img
+                src="./images/Tenth-of-ramadan-city.webp"
+                alt="معهد العاشر من رمضان"
+                class="partner-img"
+              />
+            </div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="partner-glass-card">
+              <img
+                src="./images/Al-Safwa.webp"
+                alt="معهد الصفوة الهندسي"
+                class="partner-img"
+              />
+            </div>
+          </div>
+        </div> -->
       </div>
     </div>
-
     <!-- ══════════════════ ABOUT INSTRUCTOR ══════════════════ -->
-    <section>
+    <section id="about">
       <div class="container">
         <div class="row align-items-center g-5">
           <div class="col-lg-5">
             <div class="about-img-wrap">
-              <img
-                src="https://images.unsplash.com/photo-1719400471588-575b23e27bd7?w=800&h=600&fit=crop&auto=format"
-                alt="مهندس برمجيات يعمل"
-              />
+              <img src="./images/eng-mustafa.jpg" alt="المهندس مصطفي محفوظ" />
               <div class="about-badge">
-                <div style="font-size: 1.6rem; font-weight: 900">10+</div>
-                <div style="font-size: 0.75rem">سنوات خبرة</div>
+                <div class="ab-num">10+</div>
+                <div class="ab-lbl">سنوات خبرة</div>
               </div>
             </div>
           </div>
           <div class="col-lg-7">
             <div class="section-label">مين المدرب؟</div>
-            <h2
-              class="fw-900 mb-3"
-              style="font-size: clamp(1.8rem, 4vw, 2.8rem); color: #fff"
-            >
-              المهندس مصطفي محفوظ
+            <h2 class="about-title mb-5">
+              المهندس
+              <span class="about-highlight">
+                مصطفي محفوظ
+                <svg
+                  class="about-underline-svg"
+                  viewBox="0 0 320 60"
+                  fill="none"
+                >
+                  <path
+                    d="M10 40 Q160 5 310 50"
+                    stroke="url(#paint_about_gold)"
+                    stroke-width="5"
+                    stroke-linecap="round"
+                  ></path>
+                  <defs>
+                    <linearGradient
+                      x1="0%"
+                      y1="0%"
+                      x2="100%"
+                      y2="0%"
+                      id="paint_about_gold"
+                    >
+                      <stop offset="0%" stop-color="#fbc531"></stop>
+                      <stop offset="100%" stop-color="#f39c12"></stop>
+                    </linearGradient>
+                  </defs>
+                </svg>
+              </span>
             </h2>
-            <p class="text-muted2 mb-3" style="line-height: 2">
+            <p class="about-desc mb-3">
               بقالي 12 سنة شغال في البرمجة وحالياً صاحب شركة برمجيات ليها 3 فروع
-              وشغال فيها اكتر من 50 موظف.
+              وشغال فيها أكتر من 50 موظف.
             </p>
-            <p class="text-muted2 mb-4" style="line-height: 2">
+            <p class="about-desc mb-4">
               كل كلمة هقولهالك اتعلمتها بالطريقة الصعبة ودفعت من فلوسي ووقتي
               ومجهودي. مش كلام نظري — جاي من تعاملي مع أكتر من 50 جهة عملنا
               تعاون معاها.
@@ -162,13 +250,13 @@
               <div class="col-4">
                 <div class="card-stat">
                   <div class="cs-num">150+</div>
-                  <div class="cs-lbl">عميل</div>
+                  <div class="cs-lbl">مشروع ناجح</div>
                 </div>
               </div>
               <div class="col-4">
                 <div class="card-stat">
                   <div class="cs-num">20k+</div>
-                  <div class="cs-lbl">متدرب</div>
+                  <div class="cs-lbl">متدرب معتمد</div>
                 </div>
               </div>
             </div>
