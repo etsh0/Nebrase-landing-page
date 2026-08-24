@@ -1,3 +1,5 @@
+AOS.init();
+
 /* ── Payment method switcher ── */
 function switchPay(method, clickedBtn) {
   document
@@ -248,7 +250,9 @@ function formatPhone(input) {
       const rule = input.closest(".form-field")?.dataset.validate;
       const method = getActivePaymentMethod();
       const isPersonal = ["fullName", "email", "phone"].includes(input.name);
-      const isActivePayment = (paymentFields[method] || []).includes(input.name);
+      const isActivePayment = (paymentFields[method] || []).includes(
+        input.name,
+      );
       if (isPersonal || isActivePayment) validateField(input);
     });
 
