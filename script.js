@@ -14,27 +14,6 @@ function switchPay(method, clickedBtn) {
   document.getElementById("panel-" + method).classList.add("active");
 }
 
-/* ── Credit card number formatter ── */
-function formatCard(input) {
-  let val = input.value.replace(/\D/g, "").substring(0, 16);
-  input.value = val.match(/.{1,4}/g)?.join(" ") || val;
-}
-
-/* ── Card expiry formatter ── */
-function formatExpiry(input) {
-  let val = input.value.replace(/\D/g, "").substring(0, 4);
-  if (val.length >= 3) {
-    input.value = val.slice(0, 2) + " / " + val.slice(2);
-  } else {
-    input.value = val;
-  }
-}
-
-/* ── Phone formatter (digits only) ── */
-function formatPhone(input) {
-  input.value = input.value.replace(/\D/g, "").substring(0, 11);
-}
-
 /* ── Registration form validation ── */
 (function () {
   const form = document.getElementById("regForm");
@@ -46,38 +25,31 @@ function formatPhone(input) {
   formAlert.textContent = "يرجى تصحيح الأخطاء في النموذج قبل الإرسال";
   form.insertBefore(formAlert, form.firstChild);
 
-  const paymentFields = {
-    card: ["cardName", "cardNumber", "cardExpiry", "cardCvv"],
-    instapay: ["instapayRef"],
-    vodafone: ["vodafoneRef"],
-  };
-
-  const validators = {
-    fullName(value) {
+  function nameValidator(label) {
+    return function (value) {
       const trimmed = value.trim();
-      if (!trimmed) return "الاسم الكامل مطلوب";
-      if (trimmed.length < 3) return "الاسم يجب أن يكون 3 أحرف على الأقل";
-      if (trimmed.length > 80) return "الاسم طويل جداً";
-      if (!/^[\u0600-\u06FFa-zA-Z\s\-']+$/.test(trimmed)) {
-        return "الاسم يجب أن يحتوي على حروف فقط";
-      }
-      const parts = trimmed.split(/\s+/).filter(Boolean);
-      if (parts.length < 2) return "يرجى إدخال الاسم الأول واسم العائلة";
-      if (parts.some((part) => part.length < 2)) {
-        return "كل جزء من الاسم يجب أن يكون حرفين على الأقل";
+      if (!trimmed) return `${label} مطلوب`;
+      if (trimmed.length < 2) return `${label} يجب أن يكون حرفين على الأقل`;
+      if (trimmed.length > 40) return `${label} طويل جداً`;
+      if (!/^[\u0600-\u06FFa-zA-Z\s'-]+$/.test(trimmed)) {
+        return `${label} يجب أن يحتوي على حروف فقط`;
       }
       return "";
-    },
+    };
+  }
 
+  const validators = {
+    firstName: nameValidator("الاسم الأول"),
+    lastName: nameValidator("الاسم الأخير"),
     email(value) {
       const trimmed = value.trim();
       if (!trimmed) return "البريد الإلكتروني مطلوب";
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-      if (!emailRegex.test(trimmed)) return "البريد الإلكتروني غير صالح";
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(trimmed)) {
+        return "البريد الإلكتروني غير صالح";
+      }
       if (trimmed.length > 254) return "البريد الإلكتروني طويل جداً";
       return "";
     },
-
     phone(value) {
       const digits = value.replace(/\D/g, "");
       if (!digits) return "رقم الموبايل مطلوب";
@@ -86,102 +58,24 @@ function formatPhone(input) {
       }
       return "";
     },
-
-    cardName(value) {
-      const trimmed = value.trim();
-      if (!trimmed) return "اسم حامل البطاقة مطلوب";
-      if (trimmed.length < 3) return "الاسم قصير جداً";
-      if (!/^[\u0600-\u06FFa-zA-Z\s\-'.]+$/.test(trimmed)) {
-        return "الاسم يجب أن يحتوي على حروف فقط";
-      }
-      return "";
-    },
-
-    cardNumber(value) {
-      const digits = value.replace(/\D/g, "");
-      if (!digits) return "رقم البطاقة مطلوب";
-      if (!/^\d{16}$/.test(digits)) return "رقم البطاقة يجب أن يكون 16 رقم";
-      if (!luhnCheck(digits)) return "رقم البطاقة غير صالح";
-      return "";
-    },
-
-    cardExpiry(value) {
-      const cleaned = value.replace(/\s/g, "");
-      if (!cleaned) return "تاريخ الانتهاء مطلوب";
-      const match = cleaned.match(/^(\d{2})\/?(\d{2})$/);
-      if (!match) return "الصيغة الصحيحة: MM / YY";
-      const month = parseInt(match[1], 10);
-      const year = 2000 + parseInt(match[2], 10);
-      if (month < 1 || month > 12) return "الشهر غير صالح (01–12)";
-      const now = new Date();
-      const expiryEnd = new Date(year, month, 0, 23, 59, 59);
-      if (expiryEnd < now) return "البطاقة منتهية الصلاحية";
-      return "";
-    },
-
-    cardCvv(value) {
-      if (!value) return "CVV مطلوب";
-      if (!/^\d{3}$/.test(value)) return "CVV يجب أن يكون 3 أرقام";
-      return "";
-    },
-
-    instapayRef(value) {
-      return validateTransferRef(value);
-    },
-
-    vodafoneRef(value) {
-      return validateTransferRef(value);
-    },
   };
 
-  function validateTransferRef(value) {
-    const trimmed = value.trim();
-    if (!trimmed) return "رقم مرجع التحويل مطلوب";
-    if (trimmed.length < 4) return "رقم المرجع قصير جداً (4 أحرف على الأقل)";
-    if (trimmed.length > 30) return "رقم المرجع طويل جداً";
-    if (!/^[a-zA-Z0-9\-_]+$/.test(trimmed)) {
-      return "رقم المرجع يجب أن يحتوي على أحرف وأرقام فقط";
-    }
-    return "";
-  }
-
-  function luhnCheck(num) {
-    let sum = 0;
-    let alternate = false;
-    for (let i = num.length - 1; i >= 0; i--) {
-      let n = parseInt(num[i], 10);
-      if (alternate) {
-        n *= 2;
-        if (n > 9) n -= 9;
-      }
-      sum += n;
-      alternate = !alternate;
-    }
-    return sum % 10 === 0;
-  }
-
-  function getActivePaymentMethod() {
-    const activePanel = document.querySelector(".pay-panel.active");
-    return activePanel ? activePanel.id.replace("panel-", "") : "card";
-  }
-
-  function getFieldWrapper(input) {
-    return input.closest(".form-field");
+  function getActivePanel() {
+    return form.querySelector(".pay-panel.active");
   }
 
   function setFieldError(input, message) {
-    const wrapper = getFieldWrapper(input);
+    const wrapper = input.closest(".form-field");
     if (!wrapper) return;
-    const errorEl = wrapper.querySelector(".form-error");
-    if (message) {
-      wrapper.classList.add("is-invalid");
+    const hasError = Boolean(message);
+    wrapper.classList.toggle("is-invalid", hasError);
+    if (hasError) {
       input.setAttribute("aria-invalid", "true");
-      if (errorEl) errorEl.textContent = message;
     } else {
-      wrapper.classList.remove("is-invalid");
       input.removeAttribute("aria-invalid");
-      if (errorEl) errorEl.textContent = "";
     }
+    const errorEl = wrapper.querySelector(".form-error");
+    if (errorEl) errorEl.textContent = message;
   }
 
   function validateField(input) {
@@ -192,40 +86,18 @@ function formatPhone(input) {
     return !message;
   }
 
-  function clearHiddenPaymentErrors() {
-    const method = getActivePaymentMethod();
-    Object.entries(paymentFields).forEach(([payMethod, fields]) => {
-      if (payMethod === method) return;
-      fields.forEach((fieldName) => {
-        const input = form.querySelector(`[name="${fieldName}"]`);
-        if (input) setFieldError(input, "");
-      });
-    });
-  }
-
   function validateForm() {
-    clearHiddenPaymentErrors();
-
     let isValid = true;
     let firstInvalid = null;
 
-    const alwaysValidate = ["fullName", "email", "phone"];
-    alwaysValidate.forEach((name) => {
-      const input = form.querySelector(`[name="${name}"]`);
-      if (input && !validateField(input)) {
-        isValid = false;
-        if (!firstInvalid) firstInvalid = input;
-      }
-    });
-
-    const method = getActivePaymentMethod();
-    (paymentFields[method] || []).forEach((name) => {
-      const input = form.querySelector(`[name="${name}"]`);
-      if (input && !validateField(input)) {
-        isValid = false;
-        if (!firstInvalid) firstInvalid = input;
-      }
-    });
+    getActivePanel()
+      .querySelectorAll(".form-field[data-validate] input")
+      .forEach((input) => {
+        if (!validateField(input)) {
+          isValid = false;
+          if (!firstInvalid) firstInvalid = input;
+        }
+      });
 
     formAlert.classList.toggle("is-visible", !isValid);
 
@@ -237,63 +109,74 @@ function formatPhone(input) {
     return isValid;
   }
 
+  function getActiveMethod() {
+    const panel = getActivePanel();
+    return panel ? panel.id.replace("panel-", "") : "";
+  }
+
+  function collectActiveData() {
+    const data = {};
+    getActivePanel()
+      .querySelectorAll(".form-field[data-validate] input")
+      .forEach((input) => {
+        data[input.name] = input.value.trim();
+      });
+    return data;
+  }
+
+  function openInstapayWhatsApp(data) {
+    const message =
+      `أهلاً، أنا ${data.firstName} ${data.lastName}\n` +
+      "سجلت في البرنامج وتم تحويل 2800 جنيه عبر InstaPay\n" +
+      `البريد: ${data.email}\n` +
+      `الموبايل: ${data.phone}`;
+    window.open(
+      "https://wa.me/201027285688?text=" + encodeURIComponent(message),
+      "_blank",
+      "noopener",
+    );
+  }
+
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     if (!validateForm()) return;
+
+    const method = getActiveMethod();
+    const data = collectActiveData();
 
     form.style.display = "none";
     const success = document.getElementById("successScreen");
     success.style.display = "block";
     success.scrollIntoView({ behavior: "smooth", block: "center" });
+
+    if (method === "instapay") openInstapayWhatsApp(data);
   });
 
   form.querySelectorAll(".form-field input").forEach((input) => {
     input.addEventListener("blur", () => {
-      const rule = input.closest(".form-field")?.dataset.validate;
-      const method = getActivePaymentMethod();
-      const isPersonal = ["fullName", "email", "phone"].includes(input.name);
-      const isActivePayment = (paymentFields[method] || []).includes(
-        input.name,
-      );
-      if (isPersonal || isActivePayment) validateField(input);
+      if (!input.closest(".pay-panel")?.classList.contains("active")) return;
+      validateField(input);
     });
 
     input.addEventListener("input", () => {
-      const wrapper = getFieldWrapper(input);
+      const wrapper = input.closest(".form-field");
       if (wrapper?.classList.contains("is-invalid")) {
         validateField(input);
-      }
-      if (formAlert.classList.contains("is-visible")) {
-        formAlert.classList.remove("is-visible");
+        if (!wrapper.classList.contains("is-invalid")) {
+          formAlert.classList.remove("is-visible");
+        }
       }
     });
   });
 
-  const cardNum = document.getElementById("cardNum");
-  if (cardNum) {
-    cardNum.addEventListener("input", () => formatCard(cardNum));
-  }
-
-  const cardExpiry = document.getElementById("cardExpiry");
-  if (cardExpiry) {
-    cardExpiry.addEventListener("input", () => formatExpiry(cardExpiry));
-  }
-
-  const phone = document.getElementById("phone");
-  if (phone) {
-    phone.addEventListener("input", () => formatPhone(phone));
-  }
-
-  const cardCvv = document.getElementById("cardCvv");
-  if (cardCvv) {
-    cardCvv.addEventListener("input", () => {
-      cardCvv.value = cardCvv.value.replace(/\D/g, "").substring(0, 3);
+  form.querySelectorAll('input[type="tel"]').forEach((phoneInput) => {
+    phoneInput.addEventListener("input", () => {
+      phoneInput.value = phoneInput.value.replace(/\D/g, "").slice(0, 11);
     });
-  }
+  });
 
-  document.querySelectorAll(".pay-btn").forEach((btn) => {
+  form.querySelectorAll(".pay-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
-      setTimeout(clearHiddenPaymentErrors, 0);
       formAlert.classList.remove("is-visible");
     });
   });
@@ -388,51 +271,6 @@ counters.forEach((counter) => {
   }
 
   requestAnimationFrame(updateCounter);
-});
-
-// Swiper
-const wrapperEl = document.querySelector(".partners-swiper .swiper-wrapper");
-const originalSlides = Array.from(wrapperEl.children);
-const oneSetWidth = originalSlides.reduce(
-  (sum, el) => sum + el.getBoundingClientRect().width,
-  0,
-);
-
-// Target: at least 4x the viewport width worth of real slides,
-// so loop clones + freeMode autoplay always have enough track
-// to work with, even on ultrawide monitors.
-const targetWidth = window.innerWidth * 4;
-let currentWidth = oneSetWidth;
-
-while (currentWidth < targetWidth && oneSetWidth > 0) {
-  originalSlides.forEach((slide) => {
-    wrapperEl.appendChild(slide.cloneNode(true));
-  });
-  currentWidth += oneSetWidth;
-}
-
-const partnersSwiper = new Swiper(".partners-swiper", {
-  slidesPerView: "auto",
-  spaceBetween: 0,
-  loop: true,
-  loopAdditionalSlides: 12,
-  freeMode: {
-    enabled: true,
-    momentum: false,
-  },
-  speed: 6000,
-  autoplay: {
-    delay: 1,
-    disableOnInteraction: false,
-    pauseOnMouseEnter: true, // pauses on hover, resumes on leave,
-    // no position reset either way
-  },
-  allowTouchMove: false, // touch never breaks the animation
-  breakpoints: {
-    0: { spaceBetween: 0 },
-    768: { spaceBetween: 0 },
-    1200: { spaceBetween: 0 },
-  },
 });
 
 /* ── 4 STAGES scroll reveal ── */
