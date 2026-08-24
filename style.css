@@ -535,12 +535,8 @@ section {
      in your real stylesheet; these are provided so the demo
      is self-contained. */
 .partner-glass-card {
-  width: 170px;
-  height: 100px;
-  margin: 0 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 150px;
+  height: 150px;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 16px;
@@ -548,21 +544,32 @@ section {
   -webkit-backdrop-filter: blur(8px);
   padding: 14px 20px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  transition: 0.3s;
 }
 
 .partner-img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  filter: grayscale(15%);
+  filter: grayscale(100%);
+}
+
+.partner-glass-card:hover .partner-img {
+  filter: grayscale(0);
+}
+#ribbon .row {
+  gap: 16px;
 }
 
 @media (max-width: 768px) {
-  .partner-glass-card {
-    width: 130px;
-    height: 80px;
-    margin: 0 10px;
-    padding: 10px 14px;
+  .partner-glass-card .partner-img {
+    filter: grayscale(0);
+  }
+}
+@media (max-width: 576px) {
+  #ribbon .row {
+    gap: 8px;
   }
 }
 
@@ -698,16 +705,6 @@ section {
 .about-badge .ab-lbl {
   font-size: 0.78rem;
   font-weight: 700;
-}
-.section-label {
-  display: inline-block;
-  background: rgba(251, 197, 49, 0.12);
-  color: var(--gold);
-  border-radius: 50px;
-  padding: 6px 16px;
-  font-size: 0.8rem;
-  font-weight: 900;
-  margin-bottom: 16px;
 }
 
 /* ── problem/solution ── */
