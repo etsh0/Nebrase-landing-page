@@ -302,7 +302,132 @@ section {
 }
 
 /* ── ribbon ── */
-#ribbon {
+
+.ribbon-title {
+  font-weight: 800;
+  font-size: 2.2rem;
+}
+.ribbon-highlight {
+  position: relative;
+  display: inline-block;
+  color: #fff;
+  padding-bottom: 0.5rem;
+}
+.ribbon-underline-svg {
+  position: absolute;
+  left: 0;
+  bottom: -18px;
+  width: 100%;
+  height: 30px;
+}
+
+/* ============================================================
+     PARTNERS MARQUEE — the actual deliverable starts here
+  ============================================================ */
+
+/* Full-bleed wrapper: breaks out of the Bootstrap .container
+     without ever creating page-level horizontal scroll. */
+.partners-carousel-wrapper {
+  position: relative;
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+  overflow: hidden; /* clips the swiper, kills any overflow */
+  padding: 1.5rem 0;
+}
+
+/* Fog / fade pseudo-elements on both edges.
+     Update the rgba() base color to match your real page
+     background if it isn't #0e1420. */
+.partners-carousel-wrapper::before,
+.partners-carousel-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: clamp(50px, 9vw, 130px);
+  z-index: 2;
+  pointer-events: none;
+}
+.partners-carousel-wrapper::before {
+  left: 0;
+  background: linear-gradient(
+    to right,
+    rgba(14, 20, 32, 0.18) 0%,
+    rgba(14, 20, 32, 0.12) 25%,
+    rgba(14, 20, 32, 0.06) 55%,
+    rgba(14, 20, 32, 0) 100%
+  );
+}
+.partners-carousel-wrapper::after {
+  right: 0;
+  background: linear-gradient(
+    to left,
+    rgba(14, 20, 32, 0.18) 0%,
+    rgba(14, 20, 32, 0.12) 25%,
+    rgba(14, 20, 32, 0.06) 55%,
+    rgba(14, 20, 32, 0) 100%
+  );
+}
+
+/* The Swiper root must stay LTR so autoplay's natural
+     translateX(-x) direction reads as right → left on screen.
+     RTL is only applied to text content elsewhere on the page. */
+.partners-swiper {
+  direction: ltr;
+  width: 100%;
+  overflow: hidden;
+}
+
+.partners-swiper .swiper-wrapper {
+  /* freeMode + linear autoplay needs a non-eased transition */
+  transition-timing-function: linear !important;
+}
+
+.partners-swiper .swiper-slide {
+  width: auto; /* required for slidesPerView: 'auto' */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Reused card styling — keep your existing rules if you
+     already have .partner-glass-card / .partner-img defined
+     in your real stylesheet; these are provided so the demo
+     is self-contained. */
+.partner-glass-card {
+  width: 170px;
+  height: 100px;
+  margin: 0 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 14px 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.partner-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: grayscale(15%);
+}
+
+@media (max-width: 768px) {
+  .partner-glass-card {
+    width: 130px;
+    height: 80px;
+    margin: 0 10px;
+    padding: 10px 14px;
+  }
+}
+
+/* #ribbon {
   padding: 40px 0;
   background: rgba(251, 197, 49, 0.04);
   border-top: 1px solid rgba(251, 197, 49, 0.12);
@@ -333,7 +458,7 @@ section {
   color: var(--muted);
   font-size: 0.85rem;
   font-weight: 700;
-}
+} */
 
 /* ── cards ── */
 .card-dark {
