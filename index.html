@@ -1749,37 +1749,54 @@
               </div>
 
               <!-- Form -->
-              <form id="regForm" onsubmit="submitForm(event)">
+              <form id="regForm" novalidate>
                 <!-- Personal info -->
                 <div class="row g-3 mb-4">
                   <div class="col-md-4">
-                    <label class="form-label">الاسم الكامل</label>
-                    <input
-                      type="text"
-                      required
-                      class="form-control-dark"
-                      placeholder="مثال: أحمد محمد"
-                    />
+                    <div class="form-field" data-validate="fullName">
+                      <label class="form-label" for="fullName">الاسم الكامل</label>
+                      <input
+                        type="text"
+                        id="fullName"
+                        name="fullName"
+                        class="form-control-dark"
+                        placeholder="مثال: أحمد محمد"
+                        autocomplete="name"
+                      />
+                      <span class="form-error" role="alert"></span>
+                    </div>
                   </div>
                   <div class="col-md-4">
-                    <label class="form-label">البريد الإلكتروني</label>
-                    <input
-                      type="email"
-                      required
-                      class="form-control-dark"
-                      placeholder="example@email.com"
-                      dir="ltr"
-                    />
+                    <div class="form-field" data-validate="email">
+                      <label class="form-label" for="email">البريد الإلكتروني</label>
+                      <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        class="form-control-dark"
+                        placeholder="example@email.com"
+                        dir="ltr"
+                        autocomplete="email"
+                      />
+                      <span class="form-error" role="alert"></span>
+                    </div>
                   </div>
                   <div class="col-md-4">
-                    <label class="form-label">رقم الموبايل</label>
-                    <input
-                      type="tel"
-                      required
-                      class="form-control-dark"
-                      placeholder="01xxxxxxxxx"
-                      dir="ltr"
-                    />
+                    <div class="form-field" data-validate="phone">
+                      <label class="form-label" for="phone">رقم الموبايل</label>
+                      <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        class="form-control-dark"
+                        placeholder="01xxxxxxxxx"
+                        dir="ltr"
+                        maxlength="11"
+                        inputmode="numeric"
+                        autocomplete="tel"
+                      />
+                      <span class="form-error" role="alert"></span>
+                    </div>
                   </div>
                 </div>
 
@@ -1825,16 +1842,20 @@
                 <div id="panel-card" class="pay-panel active">
                   <div class="pay-box pay-box-card">
                     <p class="pay-title-card">بيانات البطاقة</p>
-                    <div class="mb-3">
-                      <label class="form-label">الاسم على البطاقة</label>
+                    <div class="form-field mb-3" data-validate="cardName">
+                      <label class="form-label" for="cardName">الاسم على البطاقة</label>
                       <input
                         type="text"
+                        id="cardName"
+                        name="cardName"
                         class="form-control-dark"
                         placeholder="الاسم كما هو مكتوب على البطاقة"
+                        autocomplete="cc-name"
                       />
+                      <span class="form-error" role="alert"></span>
                     </div>
-                    <div class="mb-3">
-                      <label class="form-label">رقم البطاقة</label>
+                    <div class="form-field mb-3" data-validate="cardNumber">
+                      <label class="form-label" for="cardNum">رقم البطاقة</label>
                       <input
                         type="text"
                         class="form-control-dark"
@@ -1842,29 +1863,46 @@
                         maxlength="19"
                         dir="ltr"
                         id="cardNum"
-                        oninput="formatCard(this)"
+                        name="cardNumber"
+                        inputmode="numeric"
+                        autocomplete="cc-number"
                       />
+                      <span class="form-error" role="alert"></span>
                     </div>
                     <div class="row g-3">
                       <div class="col-6">
-                        <label class="form-label">تاريخ الانتهاء</label>
-                        <input
-                          type="text"
-                          class="form-control-dark"
-                          placeholder="MM / YY"
-                          maxlength="7"
-                          dir="ltr"
-                        />
+                        <div class="form-field" data-validate="cardExpiry">
+                          <label class="form-label" for="cardExpiry">تاريخ الانتهاء</label>
+                          <input
+                            type="text"
+                            id="cardExpiry"
+                            name="cardExpiry"
+                            class="form-control-dark"
+                            placeholder="MM / YY"
+                            maxlength="7"
+                            dir="ltr"
+                            inputmode="numeric"
+                            autocomplete="cc-exp"
+                          />
+                          <span class="form-error" role="alert"></span>
+                        </div>
                       </div>
                       <div class="col-6">
-                        <label class="form-label">CVV</label>
-                        <input
-                          type="password"
-                          class="form-control-dark"
-                          placeholder="XXX"
-                          maxlength="3"
-                          dir="ltr"
-                        />
+                        <div class="form-field" data-validate="cardCvv">
+                          <label class="form-label" for="cardCvv">CVV</label>
+                          <input
+                            type="password"
+                            id="cardCvv"
+                            name="cardCvv"
+                            class="form-control-dark"
+                            placeholder="XXX"
+                            maxlength="3"
+                            dir="ltr"
+                            inputmode="numeric"
+                            autocomplete="cc-csc"
+                          />
+                          <span class="form-error" role="alert"></span>
+                        </div>
                       </div>
                     </div>
                     <p class="ssl-note mt-3">
@@ -1891,13 +1929,18 @@
                         01550099355
                       </p>
                     </div>
-                    <label class="form-label">رقم مرجع التحويل</label>
-                    <input
-                      type="text"
-                      class="form-control-dark"
-                      placeholder="أدخل رقم العملية بعد التحويل"
-                      dir="ltr"
-                    />
+                    <div class="form-field" data-validate="instapayRef">
+                      <label class="form-label" for="instapayRef">رقم مرجع التحويل</label>
+                      <input
+                        type="text"
+                        id="instapayRef"
+                        name="instapayRef"
+                        class="form-control-dark"
+                        placeholder="أدخل رقم العملية بعد التحويل"
+                        dir="ltr"
+                      />
+                      <span class="form-error" role="alert"></span>
+                    </div>
                   </div>
                 </div>
 
@@ -1919,13 +1962,18 @@
                         01027285688
                       </p>
                     </div>
-                    <label class="form-label">رقم مرجع التحويل</label>
-                    <input
-                      type="text"
-                      class="form-control-dark"
-                      placeholder="أدخل رقم العملية بعد التحويل"
-                      dir="ltr"
-                    />
+                    <div class="form-field" data-validate="vodafoneRef">
+                      <label class="form-label" for="vodafoneRef">رقم مرجع التحويل</label>
+                      <input
+                        type="text"
+                        id="vodafoneRef"
+                        name="vodafoneRef"
+                        class="form-control-dark"
+                        placeholder="أدخل رقم العملية بعد التحويل"
+                        dir="ltr"
+                      />
+                      <span class="form-error" role="alert"></span>
+                    </div>
                   </div>
                 </div>
 

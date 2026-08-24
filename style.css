@@ -1741,6 +1741,43 @@ section {
 .form-control-dark::placeholder {
   color: rgba(255, 255, 255, 0.3);
 }
+.form-field {
+  position: relative;
+}
+.form-field.is-invalid .form-control-dark {
+  border-color: rgba(239, 68, 68, 0.65);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12);
+}
+.form-field.is-invalid .form-control-dark:focus {
+  border-color: rgba(239, 68, 68, 0.85);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.18);
+}
+.form-error {
+  display: none;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #f87171;
+  margin-top: 6px;
+  line-height: 1.5;
+}
+.form-field.is-invalid .form-error {
+  display: block;
+}
+.form-alert {
+  display: none;
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  border-radius: 12px;
+  padding: 12px 16px;
+  color: #fca5a5;
+  font-size: 0.88rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.form-alert.is-visible {
+  display: block;
+}
 .pay-divider {
   display: flex;
   align-items: center;
