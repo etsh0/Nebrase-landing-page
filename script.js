@@ -1,23 +1,3 @@
-/* ── FAQ accordion ── */
-function toggleFaq(btn) {
-  const body = btn.nextElementSibling;
-  const icon = btn.querySelector(".faq-icon");
-  const isOpen = body.classList.contains("open");
-
-  // close all
-  document
-    .querySelectorAll(".faq-body")
-    .forEach((b) => b.classList.remove("open"));
-  document
-    .querySelectorAll(".faq-icon")
-    .forEach((i) => i.classList.remove("open"));
-
-  if (!isOpen) {
-    body.classList.add("open");
-    icon.classList.add("open");
-  }
-}
-
 /* ── Payment method switcher ── */
 function switchPay(method, clickedBtn) {
   document
@@ -63,47 +43,6 @@ window.addEventListener("scroll", () => {
 });
 
 // Swiper
-// ============================================================
-// PARTNERS MARQUEE — Swiper init
-// ============================================================
-// Why these specific settings, so future edits don't break the
-// "seamless conveyor belt" requirement:
-//
-// - slidesPerView: 'auto'  → slides keep their natural width
-//   instead of Swiper dividing the track into equal columns.
-// - loop: true              → Swiper clones slides at both ends
-//   so there's real DOM content before/after the visible set;
-//   this is what removes the "jump" at the reset point.
-// - loopAdditionalSlides    → extra clone padding so wide
-//   viewports (ultrawide monitors) never run out of clones.
-// - freeMode + autoplay delay:1 + long `speed` is the standard
-//   trick for turning Swiper's slide-to-slide autoplay into a
-//   constant-velocity marquee: with delay ~0 the "next slide"
-//   call fires almost immediately, and because speed is large
-//   relative to slide width, the CSS transform transition never
-//   finishes before the next tick queues, so the track visually
-//   never stops moving.
-// - transition-timing-function: linear (set in CSS above) is
-//   required, otherwise Swiper's default ease-out timing causes
-//   the classic micro pause/re-accelerate stutter on every tick.
-// - allowTouchMove: false   → user requirement says touch must
-//   never interrupt the animation; if you want swipe-to-browse
-//   on mobile instead, set this true and rely on
-//   disableOnInteraction: false to keep autoplay resuming.
-
-// ------------------------------------------------------------
-// Auto-duplicate slides BEFORE Swiper initializes.
-//
-// Why this is needed: Swiper's loop mode (with slidesPerView:
-// "auto") requires the *real* slide content to be at least
-// ~2x the viewport width, or it can't build a stable loop and
-// logs "not enough slides for loop mode". A fixed number of
-// manual copies (e.g. 3 sets) might be plenty on mobile but
-// not enough on a 1920px+ desktop monitor. So instead of
-// guessing a fixed count, we clone the slide set at runtime
-// until the total track width comfortably exceeds the current
-// viewport — this makes it correct at any screen size without
-// editing the HTML by hand.
 const wrapperEl = document.querySelector(".partners-swiper .swiper-wrapper");
 const originalSlides = Array.from(wrapperEl.children);
 const oneSetWidth = originalSlides.reduce(
@@ -147,3 +86,82 @@ const partnersSwiper = new Swiper(".partners-swiper", {
     1200: { spaceBetween: 0 },
   },
 });
+
+/* ── 4 STAGES scroll reveal ── */
+(function () {
+  const animEls = document.querySelectorAll(".ps-animate");
+  if (!animEls.length) return;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("ps-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15 },
+  );
+
+  animEls.forEach((el) => observer.observe(el));
+})();
+
+/* ── Stages sticky stacking scroll effect ── */
+(function () {
+  "use strict";
+
+  var reduceMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+  var isNarrow = window.matchMedia("(max-width: 479.98px)").matches;
+  if (reduceMotion) return; // CSS fallback already handles the static layout
+
+  var cards = Array.prototype.slice.call(
+    document.querySelectorAll(".stage-card"),
+  );
+  if (!cards.length) return;
+
+  var ticking = false;
+
+  /*
+    A card counts as "stacked" (i.e. has something sitting on top of it)
+    once the NEXT card's sticky wrapper has scrolled up far enough to
+    start overlapping it. We detect that purely by comparing bounding
+    rects — read-only, no layout writes inside the loop — then batch all
+    class toggles together to avoid layout thrashing.
+  */
+  function update() {
+    ticking = false;
+    if (isNarrow) return; // simplified mobile experience: no depth choreography
+
+    for (var i = 0; i < cards.length - 1; i++) {
+      var current = cards[i];
+      var next = cards[i + 1];
+      var currentRect = current.getBoundingClientRect();
+      var nextRect = next.getBoundingClientRect();
+
+      var isBeingCovered = nextRect.top <= currentRect.top + 8;
+      current.classList.toggle("is-stacked", isBeingCovered);
+    }
+  }
+
+  function onScroll() {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(update);
+    }
+  }
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener(
+    "resize",
+    function () {
+      isNarrow = window.matchMedia("(max-width: 479.98px)").matches;
+      onScroll();
+    },
+    { passive: true },
+  );
+
+  update();
+})();
