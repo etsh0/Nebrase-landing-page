@@ -42,6 +42,80 @@ window.addEventListener("scroll", () => {
   nav.classList.toggle("scrolled", window.scrollY > 40);
 });
 
+/* ── Mobile nav sidebar ── */
+(function () {
+  const burger = document.getElementById("navBurger");
+  const sidebar = document.getElementById("navSidebar");
+  const overlay = document.getElementById("navSidebarOverlay");
+  const closeBtn = document.getElementById("navSidebarClose");
+
+  if (!burger || !sidebar || !overlay) return;
+
+  function setOpen(isOpen) {
+    burger.classList.toggle("is-open", isOpen);
+    sidebar.classList.toggle("is-open", isOpen);
+    overlay.classList.toggle("is-open", isOpen);
+    document.body.classList.toggle("nav-sidebar-open", isOpen);
+    burger.setAttribute("aria-expanded", String(isOpen));
+    sidebar.setAttribute("aria-hidden", String(!isOpen));
+    overlay.setAttribute("aria-hidden", String(!isOpen));
+  }
+
+  function closeSidebar() {
+    setOpen(false);
+  }
+
+  burger.addEventListener("click", () => {
+    const isOpen = sidebar.classList.contains("is-open");
+    setOpen(!isOpen);
+  });
+
+  closeBtn?.addEventListener("click", closeSidebar);
+  overlay.addEventListener("click", closeSidebar);
+
+  sidebar.querySelectorAll('a[href^="#"]').forEach((link) => {
+    link.addEventListener("click", closeSidebar);
+  });
+
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && sidebar.classList.contains("is-open")) {
+      closeSidebar();
+    }
+  });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth >= 768 && sidebar.classList.contains("is-open")) {
+      closeSidebar();
+    }
+  });
+})();
+
+// ==================== STATS COUNTER ====================
+// Animate statistics numbers from 0 to their target value
+const counters = document.querySelectorAll("[data-target]");
+
+counters.forEach((counter) => {
+  const target = Number(counter.dataset.target);
+  const duration = 2000;
+  const startTime = performance.now();
+
+  function updateCounter(currentTime) {
+    const progress = Math.min((currentTime - startTime) / duration, 1);
+
+    const current = Math.floor(progress * target);
+
+    counter.textContent = current.toLocaleString();
+
+    if (progress < 1) {
+      requestAnimationFrame(updateCounter);
+    } else {
+      counter.textContent = target.toLocaleString();
+    }
+  }
+
+  requestAnimationFrame(updateCounter);
+});
+
 // Swiper
 const wrapperEl = document.querySelector(".partners-swiper .swiper-wrapper");
 const originalSlides = Array.from(wrapperEl.children);

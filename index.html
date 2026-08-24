@@ -45,14 +45,65 @@
           src="./images/fbcab719-70ea-4d8d-ac03-282abe10bb7a.png"
           alt="nebrase-logo"
         />
-        <div class="nav-links d-none d-md-block">
+        <div class="nav-links d-none d-md-flex align-items-center">
           <a href="#stages">المراحل</a>
           <a href="#golden">الجولدن تيكت</a>
           <a href="#faq">أسئلة</a>
         </div>
-        <a href="#register" class="btn-gold">سجّل الآن</a>
+        <div class="nav-actions d-flex align-items-center gap-2">
+          <a href="#register" class="btn-gold d-none d-sm-inline-block"
+            >سجّل الآن</a
+          >
+          <button
+            type="button"
+            class="nav-burger d-md-none"
+            id="navBurger"
+            aria-label="فتح القائمة"
+            aria-expanded="false"
+            aria-controls="navSidebar"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
       </div>
     </nav>
+
+    <!-- Mobile sidebar -->
+    <div
+      class="nav-sidebar-overlay"
+      id="navSidebarOverlay"
+      aria-hidden="true"
+    ></div>
+    <aside
+      class="nav-sidebar"
+      id="navSidebar"
+      aria-hidden="true"
+      aria-label="قائمة التنقل"
+    >
+      <div class="nav-sidebar-header">
+        <img
+          class="nav-sidebar-logo"
+          src="./images/fbcab719-70ea-4d8d-ac03-282abe10bb7a.png"
+          alt="nebrase-logo"
+        />
+        <button
+          type="button"
+          class="nav-sidebar-close"
+          id="navSidebarClose"
+          aria-label="إغلاق القائمة"
+        >
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <nav class="nav-sidebar-links">
+        <a href="#stages">المراحل</a>
+        <a href="#golden">الجولدن تيكت</a>
+        <a href="#faq">أسئلة</a>
+        <a href="#register" class="btn-gold nav-sidebar-cta">سجّل الآن</a>
+      </nav>
+    </aside>
 
     <!-- ══════════════════ HERO ══════════════════ -->
     <header id="hero">
@@ -61,7 +112,9 @@
       <div class="hero-orb1"></div>
       <div class="hero-orb2"></div>
       <div class="hero-content container px-3">
-        <div class="badge-pill">انطلق في عام 2026 — أكتر من 20,000 متدرب</div>
+        <div class="badge-pill d-none d-sm-inline-block">
+          انطلق في عام 2026 — أكتر من 20,000 متدرب
+        </div>
         <h1 class="hero-title">
           تعلّم أساسيات البرمجة من الصفر<br />
           <span class="hero-highlight">
@@ -94,17 +147,20 @@
         </p>
         <div class="stats-row">
           <div class="stat-item">
-            <div class="stat-num">20,000+</div>
+            <div class="stat-num"><span data-target="20000">0</span>+</div>
             <div class="stat-lbl">متدرب</div>
           </div>
+
           <div class="stat-item">
             <div class="stat-num">3</div>
             <div class="stat-lbl">فروع</div>
           </div>
+
           <div class="stat-item">
-            <div class="stat-num">100+</div>
+            <div class="stat-num"><span data-target="100">0</span>+</div>
             <div class="stat-lbl">محاضر</div>
           </div>
+
           <div class="stat-item">
             <div class="stat-num">10</div>
             <div class="stat-lbl">سنوات خبرة</div>
@@ -1137,6 +1193,9 @@
     <!-- ══════════════════ GOLDEN TICKET ══════════════════ -->
     <section id="golden">
       <div class="container">
+        <div class="img">
+          <img src="./images/web 2.jpg.jpeg" alt="" />
+        </div>
         <div class="card_box">
           <span class="ribbon"></span>
 
@@ -1738,28 +1797,34 @@
                     class="pay-btn active"
                     onclick="switchPay('card', this)"
                   >
-                    <span class="pay-icon">💳</span>كريدت كارد
+                    <span class="pay-icon">
+                      <img src="./images/creditcard.png" alt="" /> </span
+                    >كريدت كارد
                   </button>
                   <button
                     type="button"
                     class="pay-btn"
                     onclick="switchPay('instapay', this)"
                   >
-                    <span class="pay-icon">⚡</span>InstaPay
+                    <span class="pay-icon">
+                      <img src="./images/instapay.png" alt="" /> </span
+                    >InstaPay
                   </button>
                   <button
                     type="button"
                     class="pay-btn"
                     onclick="switchPay('vodafone', this)"
                   >
-                    <span class="pay-icon">📱</span>فودافون كاش
+                    <span class="pay-icon">
+                      <img src="./images/vodafone.png" alt="" /> </span
+                    >فودافون كاش
                   </button>
                 </div>
 
                 <!-- Credit Card panel -->
                 <div id="panel-card" class="pay-panel active">
                   <div class="pay-box pay-box-card">
-                    <p class="pay-title-card">💳 بيانات البطاقة</p>
+                    <p class="pay-title-card">بيانات البطاقة</p>
                     <div class="mb-3">
                       <label class="form-label">الاسم على البطاقة</label>
                       <input
@@ -1803,7 +1868,7 @@
                       </div>
                     </div>
                     <p class="ssl-note mt-3">
-                      🔒 بياناتك محمية بتشفير SSL آمن تماماً
+                      بياناتك محمية بتشفير SSL آمن تماماً
                     </p>
                   </div>
                 </div>
@@ -1823,7 +1888,7 @@
                         style="font-size: 1.3rem"
                         dir="ltr"
                       >
-                        Nebrase@instapay
+                        01550099355
                       </p>
                     </div>
                     <label class="form-label">رقم مرجع التحويل</label>
@@ -1851,7 +1916,7 @@
                         style="font-size: 1.8rem"
                         dir="ltr"
                       >
-                        010X XXX XXXX
+                        01027285688
                       </p>
                     </div>
                     <label class="form-label">رقم مرجع التحويل</label>
@@ -1864,9 +1929,7 @@
                   </div>
                 </div>
 
-                <button type="submit" class="btn-submit">
-                  🚀 سجّل دلوقتي — 2800 جنيه فقط
-                </button>
+                <button type="submit" class="btn-submit">سجّل دلوقتي</button>
                 <p class="text-center ssl-note mt-3">
                   بالتسجيل توافق على الشروط والأحكام • ضمان استرداد كامل لو ما
                   استفدتش
@@ -1902,8 +1965,8 @@
           href="#register"
           class="btn-gold"
           style="font-size: 1.2rem; padding: 18px 52px"
-          >سجّل الآن — 2800 جنيه فقط</a
-        >
+          >سجّل الآن
+        </a>
       </div>
     </section>
 
