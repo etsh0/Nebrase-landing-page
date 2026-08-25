@@ -129,6 +129,16 @@ img {
     transform 0.28s ease,
     opacity 0.22s ease;
 }
+@media (max-width: 425px) {
+  .nav-burger {
+    width: 32px;
+    height: 32px;
+  }
+  .nav-burger span {
+    width: 16px;
+    height: 2px;
+  }
+}
 .nav-burger:hover {
   background: rgba(251, 197, 49, 0.1);
   border-color: rgba(251, 197, 49, 0.55);
@@ -1942,7 +1952,16 @@ footer {
   #navbar {
     width: calc(100% - 24px);
     top: 12px;
-    padding: 8px 16px;
+    padding: 8px 5px 8px 10px;
+  }
+
+  #navbar .btn-gold {
+    padding: 6px 12px;
+    font-size: 0.6rem;
+    white-space: nowrap;
+  }
+  .nebrase-logo {
+    width: 96px;
   }
 
   /* Hero title font size scaling for small screens */
