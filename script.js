@@ -339,7 +339,7 @@ counters.forEach((counter) => {
   var reduceMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)",
   ).matches;
-  var isNarrow = window.matchMedia("(max-width: 479.98px)").matches;
+  var isNarrow = window.matchMedia("(max-width: 767.98px)").matches;
   if (reduceMotion) return; // CSS fallback already handles the static layout
 
   var cards = Array.prototype.slice.call(
@@ -382,7 +382,7 @@ counters.forEach((counter) => {
   window.addEventListener(
     "resize",
     function () {
-      isNarrow = window.matchMedia("(max-width: 479.98px)").matches;
+      isNarrow = window.matchMedia("(max-width: 767.98px)").matches;
       onScroll();
     },
     { passive: true },

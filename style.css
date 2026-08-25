@@ -1337,13 +1337,16 @@ section {
 /* Responsive */
 @media (max-width: 767.98px) {
   :root {
-    --card-h: auto;
-    --sticky-top: 15vh;
     --stack-gap: 16px;
   }
+  /* Mobile: no sticky stacking — tall cards would get pinned with their
+     bottoms unreachable below the viewport. Normal flow keeps every card
+     fully readable while scrolling. */
   .stage-sticky {
+    position: static;
+    height: auto;
     max-height: none;
-    align-items: stretch;
+    margin-bottom: 24px;
   }
   .stage-card {
     height: auto;
