@@ -1722,7 +1722,6 @@ section {
   color: #fff;
 }
 .pay-btn.active {
-  /* background: var(--gold); */
   border-color: var(--gold);
 }
 .pay-btn .pay-icon {
@@ -1753,14 +1752,6 @@ section {
   background: rgba(251, 197, 49, 0.05);
   border: 1px solid rgba(251, 197, 49, 0.15);
 }
-/* .pay-box-insta {
-  background: rgba(99, 102, 241, 0.08);
-  border: 1px solid rgba(99, 102, 241, 0.25);
-} */
-/* .pay-box-voda {
-  background: rgba(220, 38, 38, 0.08);
-  border: 1px solid rgba(220, 38, 38, 0.25);
-} */
 .pay-title-card {
   color: var(--gold);
   font-size: 0.8rem;
@@ -1882,6 +1873,11 @@ footer .footer-links a {
   font-size: 0.8rem;
   margin: 0 14px;
   transition: color 0.2s;
+}
+@media (max-width: 375px) {
+  footer .footer-links a {
+    font-size: 0.6rem;
+  }
 }
 footer .footer-links a:hover {
   color: #94a3b8;
