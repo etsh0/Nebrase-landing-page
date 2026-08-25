@@ -2,6 +2,45 @@ AOS.init({
   once: true,
 });
 
+/* ── Theme (light/dark) toggle ── */
+(function () {
+  const root = document.documentElement;
+  const STORAGE_KEY = "theme";
+  const LOGOS = {
+    dark: "./images/logo-dark-mode.png",
+    light: "./images/logo-light-mode.png",
+  };
+
+  function apply(theme) {
+    root.setAttribute("data-theme", theme);
+    try {
+      localStorage.setItem(STORAGE_KEY, theme);
+    } catch (e) {}
+    document.querySelectorAll(".theme-logo").forEach((img) => {
+      img.src = LOGOS[theme] || LOGOS.dark;
+    });
+  }
+
+  // Respect system preference on first visit
+  let current = null;
+  try {
+    current = localStorage.getItem(STORAGE_KEY);
+  } catch (e) {}
+  if (!current && window.matchMedia("(prefers-color-scheme: light)").matches) {
+    apply("light");
+  } else if (current === "light") {
+    apply("light");
+  }
+
+  document.querySelectorAll(".theme-toggle").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const next =
+        root.getAttribute("data-theme") === "light" ? "dark" : "light";
+      apply(next);
+    });
+  });
+})();
+
 /* ── Payment method switcher ── */
 function switchPay(method, clickedBtn) {
   document

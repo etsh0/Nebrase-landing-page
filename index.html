@@ -3,6 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark light" />
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("theme");
+          if (
+            t === "light" ||
+            (!t && window.matchMedia("(prefers-color-scheme: light)").matches)
+          ) {
+            document.documentElement.setAttribute("data-theme", "light");
+          }
+        } catch (e) {}
+      })();
+    </script>
     <title>سنة أولى برمجة— Nebrase Academy</title>
 
     <!-- Google Fonts: Cairo -->
@@ -37,7 +51,7 @@
       <div class="container d-flex align-items-center justify-content-between">
         <!-- <span class="nav-logo">Nebrase</span> -->
         <img
-          class="nebrase-logo"
+          class="nebrase-logo theme-logo"
           src="./images/logo-dark-mode.png"
           alt="nebrase-logo"
         />
@@ -47,6 +61,16 @@
           <a href="#faq">أسئلة</a>
         </div>
         <div class="nav-actions d-flex align-items-center gap-2">
+          <button
+            type="button"
+            class="theme-toggle d-none d-md-inline-flex"
+            id="themeToggle"
+            aria-label="تبديل المظهر"
+            title="تبديل المظهر"
+          >
+            <i class="fas fa-sun theme-icon-sun"></i>
+            <i class="fas fa-moon theme-icon-moon"></i>
+          </button>
           <a href="#register" class="btn-gold">سجّل الآن</a>
           <button
             type="button"
@@ -78,18 +102,29 @@
     >
       <div class="nav-sidebar-header">
         <img
-          class="nav-sidebar-logo"
+          class="nav-sidebar-logo theme-logo"
           src="./images/logo-dark-mode.png"
           alt="nebrase-logo"
         />
-        <button
-          type="button"
-          class="nav-sidebar-close"
-          id="navSidebarClose"
-          aria-label="إغلاق القائمة"
-        >
-          <i class="fas fa-times"></i>
-        </button>
+        <div class="nav-sidebar-tools d-flex align-items-center gap-2">
+          <button
+            type="button"
+            class="theme-toggle"
+            aria-label="تبديل المظهر"
+            title="تبديل المظهر"
+          >
+            <i class="fas fa-sun theme-icon-sun"></i>
+            <i class="fas fa-moon theme-icon-moon"></i>
+          </button>
+          <button
+            type="button"
+            class="nav-sidebar-close"
+            id="navSidebarClose"
+            aria-label="إغلاق القائمة"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
       </div>
       <nav class="nav-sidebar-links">
         <a href="#stages">المراحل</a>
@@ -589,7 +624,9 @@
               <div class="p-4 p-md-5">
                 <div class="row g-4 align-items-start">
                   <div class="col-auto d-flex flex-column align-items-start">
-                    <div class="stage-num" style="color: var(--gold)">01</div>
+                    <div class="stage-num" style="color: var(--gold-text)">
+                      01
+                    </div>
                     <div class="stage-icon">
                       <i class="fa-solid fa-laptop-code"></i>
                     </div>
@@ -599,7 +636,7 @@
                       style="
                         font-size: 0.75rem;
                         font-weight: 900;
-                        color: var(--gold);
+                        color: var(--gold-text);
                         margin-bottom: 4px;
                       "
                     >
@@ -607,7 +644,7 @@
                     </p>
                     <h3
                       class="fw-900 mb-3"
-                      style="color: #fff; font-size: 1.3rem"
+                      style="color: var(--heading); font-size: 1.3rem"
                     >
                       فك شفرة الكمبيوتر
                     </h3>
@@ -616,7 +653,7 @@
                         style="
                           font-size: 0.75rem;
                           font-weight: 900;
-                          color: var(--gold);
+                          color: var(--gold-text);
                           margin-bottom: 8px;
                         "
                       >
@@ -626,7 +663,7 @@
                       <p
                         style="
                           font-size: 0.88rem;
-                          color: #cbd5e1;
+                          color: var(--body-soft);
                           line-height: 2;
                         "
                       >
@@ -642,7 +679,7 @@
                         style="
                           font-size: 0.75rem;
                           font-weight: 900;
-                          color: var(--gold);
+                          color: var(--gold-text);
                           margin-bottom: 8px;
                         "
                       >
@@ -652,7 +689,7 @@
                       <p
                         style="
                           font-size: 0.88rem;
-                          color: #cbd5e1;
+                          color: var(--body-soft);
                           line-height: 2;
                         "
                       >
@@ -680,7 +717,9 @@
               <div class="p-4 p-md-5">
                 <div class="row g-4 align-items-start">
                   <div class="col-auto d-flex flex-column align-items-start">
-                    <div class="stage-num" style="color: var(--gold)">02</div>
+                    <div class="stage-num" style="color: var(--gold-text)">
+                      02
+                    </div>
                     <div class="stage-icon">
                       <i class="fa-solid fa-network-wired"></i>
                     </div>
@@ -690,7 +729,7 @@
                       style="
                         font-size: 0.75rem;
                         font-weight: 900;
-                        color: var(--gold);
+                        color: var(--gold-text);
                         margin-bottom: 4px;
                       "
                     >
@@ -698,7 +737,7 @@
                     </p>
                     <h3
                       class="fw-900 mb-3"
-                      style="color: #fff; font-size: 1.3rem"
+                      style="color: var(--heading); font-size: 1.3rem"
                     >
                       أبجديات البرمجة وعصب التكنولوجيا
                     </h3>
@@ -707,7 +746,7 @@
                         style="
                           font-size: 0.75rem;
                           font-weight: 900;
-                          color: var(--gold);
+                          color: var(--gold-text);
                           margin-bottom: 8px;
                         "
                       >
@@ -717,7 +756,7 @@
                       <p
                         style="
                           font-size: 0.88rem;
-                          color: #cbd5e1;
+                          color: var(--body-soft);
                           line-height: 2;
                         "
                       >
@@ -733,7 +772,7 @@
                         style="
                           font-size: 0.75rem;
                           font-weight: 900;
-                          color: var(--gold);
+                          color: var(--gold-text);
                           margin-bottom: 8px;
                         "
                       >
@@ -743,7 +782,7 @@
                       <p
                         style="
                           font-size: 0.88rem;
-                          color: #cbd5e1;
+                          color: var(--body-soft);
                           line-height: 2;
                         "
                       >
@@ -771,7 +810,9 @@
               <div class="p-4 p-md-5">
                 <div class="row g-4 align-items-start">
                   <div class="col-auto d-flex flex-column align-items-start">
-                    <div class="stage-num" style="color: var(--gold)">03</div>
+                    <div class="stage-num" style="color: var(--gold-text)">
+                      03
+                    </div>
                     <div class="stage-icon">
                       <i class="fa-solid fa-compass"></i>
                     </div>
@@ -781,7 +822,7 @@
                       style="
                         font-size: 0.75rem;
                         font-weight: 900;
-                        color: var(--gold);
+                        color: var(--gold-text);
                         margin-bottom: 4px;
                       "
                     >
@@ -789,7 +830,7 @@
                     </p>
                     <h3
                       class="fw-900 mb-3"
-                      style="color: #fff; font-size: 1.3rem"
+                      style="color: var(--heading); font-size: 1.3rem"
                     >
                       خريطة المجالات
                     </h3>
@@ -798,7 +839,7 @@
                         style="
                           font-size: 0.75rem;
                           font-weight: 900;
-                          color: var(--gold);
+                          color: var(--gold-text);
                           margin-bottom: 8px;
                         "
                       >
@@ -808,7 +849,7 @@
                       <p
                         style="
                           font-size: 0.88rem;
-                          color: #cbd5e1;
+                          color: var(--body-soft);
                           line-height: 2;
                         "
                       >
@@ -824,7 +865,7 @@
                         style="
                           font-size: 0.75rem;
                           font-weight: 900;
-                          color: var(--gold);
+                          color: var(--gold-text);
                           margin-bottom: 8px;
                         "
                       >
@@ -834,7 +875,7 @@
                       <p
                         style="
                           font-size: 0.88rem;
-                          color: #cbd5e1;
+                          color: var(--body-soft);
                           line-height: 2;
                         "
                       >
@@ -862,7 +903,9 @@
               <div class="p-4 p-md-5">
                 <div class="row g-4 align-items-start">
                   <div class="col-auto d-flex flex-column align-items-start">
-                    <div class="stage-num" style="color: var(--gold)">04</div>
+                    <div class="stage-num" style="color: var(--gold-text)">
+                      04
+                    </div>
                     <div class="stage-icon">
                       <i class="fa-solid fa-brain"></i>
                     </div>
@@ -872,7 +915,7 @@
                       style="
                         font-size: 0.75rem;
                         font-weight: 900;
-                        color: var(--gold);
+                        color: var(--gold-text);
                         margin-bottom: 4px;
                       "
                     >
@@ -880,7 +923,7 @@
                     </p>
                     <h3
                       class="fw-900 mb-3"
-                      style="color: #fff; font-size: 1.3rem"
+                      style="color: var(--heading); font-size: 1.3rem"
                     >
                       مبرمج عصر الذكاء الاصطناعي
                     </h3>
@@ -889,7 +932,7 @@
                         style="
                           font-size: 0.75rem;
                           font-weight: 900;
-                          color: var(--gold);
+                          color: var(--gold-text);
                           margin-bottom: 8px;
                         "
                       >
@@ -899,7 +942,7 @@
                       <p
                         style="
                           font-size: 0.88rem;
-                          color: #cbd5e1;
+                          color: var(--body-soft);
                           line-height: 2;
                         "
                       >
@@ -914,7 +957,7 @@
                         style="
                           font-size: 0.75rem;
                           font-weight: 900;
-                          color: var(--gold);
+                          color: var(--gold-text);
                           margin-bottom: 8px;
                         "
                       >
@@ -924,7 +967,7 @@
                       <p
                         style="
                           font-size: 0.88rem;
-                          color: #cbd5e1;
+                          color: var(--body-soft);
                           line-height: 2;
                         "
                       >
@@ -1175,7 +1218,10 @@
             </div>
             <h2
               class="fw-900 mb-3"
-              style="font-size: clamp(1.8rem, 4vw, 2.5rem); color: #fff"
+              style="
+                font-size: clamp(1.8rem, 4vw, 2.5rem);
+                color: var(--heading);
+              "
             >
               محمد
               <span class="ps-highlight">
@@ -1254,7 +1300,10 @@
             </div>
             <h2
               class="fw-900 mb-3"
-              style="font-size: clamp(1.8rem, 4vw, 2.6rem); color: #fff"
+              style="
+                font-size: clamp(1.8rem, 4vw, 2.6rem);
+                color: var(--heading);
+              "
             >
               السعر و<span class="ps-highlight"
                 >القيمة
@@ -1351,7 +1400,10 @@
             <div class="text-center mb-5">
               <h2
                 class="fw-900 mb-3"
-                style="font-size: clamp(1.8rem, 4vw, 2.6rem); color: #fff"
+                style="
+                  font-size: clamp(1.8rem, 4vw, 2.6rem);
+                  color: var(--heading);
+                "
               >
                 الأسئلة
                 <span class="ps-highlight"
@@ -1623,7 +1675,10 @@
               <div class="section-label">التسجيل الآن</div>
               <h2
                 class="fw-900 mb-2"
-                style="font-size: clamp(1.6rem, 3.5vw, 2.4rem); color: #fff"
+                style="
+                  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+                  color: var(--heading);
+                "
               >
                 ابدأ رحلتك دلوقتي
               </h2>
@@ -1762,8 +1817,8 @@
                     <div class="transfer-info ti-insta mb-4">
                       <p class="mb-1" style="font-size: 0.85rem">
                         حوّل مبلغ
-                        <strong style="color: #fff">2800 جنيه</strong> على حساب
-                        InstaPay التالي:
+                        <strong style="color: var(--heading)">2800 جنيه</strong>
+                        على حساب InstaPay التالي:
                       </p>
                       <p
                         class="fw-900 mt-2"
@@ -1852,8 +1907,8 @@
                     <div class="transfer-info ti-voda mb-4">
                       <p class="mb-1" style="font-size: 0.85rem">
                         حوّل مبلغ
-                        <strong style="color: #fff">2800 جنيه</strong> على رقم
-                        فودافون كاش:
+                        <strong style="color: var(--heading)">2800 جنيه</strong>
+                        على رقم فودافون كاش:
                       </p>
                       <p
                         class="fw-900 mt-2"
