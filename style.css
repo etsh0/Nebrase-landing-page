@@ -592,8 +592,13 @@ section {
 }
 .stat-item .stat-num {
   font-weight: 900;
-  font-size: 1.6rem;
+  font-size: 35px;
   color: var(--gold);
+}
+@media (max-width: 425px) {
+  .stat-item .stat-num {
+    font-size: 25px;
+  }
 }
 .stat-item .stat-lbl {
   font-size: 0.75rem;
@@ -770,6 +775,9 @@ section {
 .about-badge .ab-lbl {
   font-size: 0.78rem;
   font-weight: 700;
+}
+.span-basics {
+  color: var(--brand-amber);
 }
 
 /* ── problem/solution ── */
