@@ -27,7 +27,6 @@
   --shadow-soft: 0 12px 34px -14px rgba(0, 0, 0, 0.55);
 }
 
-
 /* ── base ── */
 *,
 *::before,
@@ -447,6 +446,142 @@ section {
   font-size: clamp(1rem, 2vw, 1.2rem);
   max-width: 680px;
   margin: 0 auto 24px;
+}
+/* video hero */
+.hero-video-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 640px;
+  margin: 2.2rem auto 2.5rem;
+  border-radius: 20px;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  background: #0c0d13;
+  cursor: pointer;
+
+  /* البورد الدهبي الخفيف + الجلو */
+  border: 1px solid rgba(251, 197, 49, 0.35);
+  box-shadow:
+    0 0 0 1px rgba(251, 197, 49, 0.08),
+    0 20px 50px -15px rgba(0, 0, 0, 0.6),
+    0 0 60px -20px rgba(251, 197, 49, 0.35);
+
+  transition:
+    box-shadow 0.4s ease,
+    transform 0.4s ease;
+}
+
+.hero-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* زرار البلاي */
+.hero-video-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #fbc531, #f39c12);
+  box-shadow: 0 8px 30px rgba(243, 156, 18, 0.5);
+  cursor: pointer;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+  z-index: 2;
+}
+
+.hero-video-play svg {
+  width: 26px;
+  height: 26px;
+  margin-right: -3px; /* لتوسيط شكل المثلث بصرياً */
+}
+
+.hero-video-play::before {
+  content: "";
+  position: absolute;
+  inset: -14px;
+  border-radius: 50%;
+  border: 2px solid rgba(251, 197, 49, 0.4);
+  animation: heroPulse 2.2s ease-out infinite;
+}
+
+.hero-video-wrap:hover .hero-video-play {
+  transform: translate(-50%, -50%) scale(1.08);
+  box-shadow: 0 10px 40px rgba(243, 156, 18, 0.65);
+}
+
+/* إخفاء زرار البلاي والبادچ لما الفيديو يشتغل */
+.hero-video-wrap.is-playing .hero-video-play,
+.hero-video-wrap.is-playing .hero-video-badge {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* تنسيق شريط تحكم الفيديو الافتراضي (يظهر فقط أثناء التشغيل) */
+.hero-video::-webkit-media-controls-panel {
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.6));
+}
+
+@keyframes heroPulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1.35);
+    opacity: 0;
+  }
+}
+
+/* البادچ الصغير أعلى يمين الفيديو */
+.hero-video-badge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: rgba(12, 13, 19, 0.75);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(251, 197, 49, 0.3);
+  color: #fbc531;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 5px 14px;
+  border-radius: 999px;
+  z-index: 2;
+  transition: opacity 0.3s ease;
+}
+
+/* Responsive: موبايل */
+@media (max-width: 576px) {
+  .hero-video-wrap {
+    max-width: 100%;
+    margin: 1.6rem auto 1.8rem;
+    border-radius: 14px;
+  }
+  .hero-video-play {
+    width: 60px;
+    height: 60px;
+  }
+  .hero-video-play svg {
+    width: 20px;
+    height: 20px;
+  }
+  .hero-video-badge {
+    font-size: 0.54rem;
+    padding: 4px 12px;
+    border-radius: 999px;
+    top: 12px;
+    right: 9px;
+  }
 }
 .stats-row {
   display: flex;
@@ -2037,4 +2172,3 @@ footer {
 ::selection {
   background: rgba(29, 151, 152, 0.28);
 }
-

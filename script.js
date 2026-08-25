@@ -390,3 +390,24 @@ counters.forEach((counter) => {
 
   update();
 })();
+
+// video hero
+const heroVideo = document.getElementById("heroVideo");
+const heroPlayBtn = document.getElementById("heroVideoPlay");
+const heroWrap = document.getElementById("heroVideoWrap");
+
+heroPlayBtn.addEventListener("click", () => {
+  heroVideo.setAttribute("controls", ""); // يظهر شريط تحكم الفيديو الطبيعي
+  heroVideo.play();
+  heroWrap.classList.add("is-playing");
+});
+
+heroVideo.addEventListener("pause", () => {
+  heroWrap.classList.remove("is-playing");
+});
+
+heroVideo.addEventListener("ended", () => {
+  heroWrap.classList.remove("is-playing");
+  heroVideo.removeAttribute("controls"); // يرجع البوستر وزرار البلاي تاني
+  heroVideo.currentTime = 0;
+});
