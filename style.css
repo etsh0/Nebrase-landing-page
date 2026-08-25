@@ -1383,14 +1383,13 @@ section {
   object-fit: cover;
 }
 .card_box {
-  width: 800px;
+  width: 900px;
   max-width: 100%;
   border-radius: 15px;
-  background: linear-gradient(
-    170deg,
-    rgba(58, 56, 56, 0.623) 0%,
-    rgb(31, 31, 31) 100%
-  );
+  /* background-image: url("./images/golden-ticket.png");
+  background-position: center center;
+  background-size: cover; */
+  border: 1px solid var(--gold);
   position: relative;
   box-shadow: 0 25px 50px rgba(0, 0, 0, 0.55);
   transition: transform 0.3s;
@@ -1509,7 +1508,7 @@ section {
   margin: 0 0 28px;
 }
 .gt-title h2 {
-  margin: 0 0 6px;
+  margin: 0 0 8px;
   font-weight: 900;
   font-size: 1.8rem;
   color: var(--gold);
@@ -1524,7 +1523,7 @@ section {
 
 .gt-list {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 24px 32px;
 }
 
@@ -1560,16 +1559,16 @@ section {
 }
 
 .gt-item h4 {
-  margin: 0 0 4px;
+  margin: 0 0 8px;
   font-family: "Cairo", sans-serif;
   font-weight: 800;
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   color: #ffc978;
 }
 
 .gt-item p {
   margin: 0;
-  font-size: 0.76rem;
+  font-size: 0.9rem;
   line-height: 1.75;
   color: #9c968d;
 }
@@ -1580,7 +1579,7 @@ section {
   border-top: 1px dashed rgba(255, 177, 68, 0.25);
   text-align: center;
   font-size: 0.72rem;
-  color: #8a8479;
+  color: var(--gold-text);
 }
 
 @media (max-width: 720px) {
@@ -1589,6 +1588,9 @@ section {
   }
   .gt-list {
     grid-template-columns: 1fr;
+  }
+  .gt-item p {
+    font-size: 0.8rem;
   }
 }
 
